@@ -1,32 +1,22 @@
-from django.shortcuts import get_object_or_404, redirect, render
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-from .models import Course, Enrollment, Question, Choice, Submission
+from django.contrib.auth import authenticate, login, logout
+from django.http import JsonResponse
+import json
+from django.views.decorators.csrf import csrf_exempt
 
-def submit(request, course_id):
-    """Xử lý nộp bài thi (exam submission)"""
-    course = get_object_or_404(Course, pk=course_id)
-    if request.method == 'POST':
-        enrollment = get_object_or_404(Enrollment, user=request.user, course=course)
-        submission = Submission.objects.create(enrollment=enrollment)
-        
-        # Lấy danh sách đáp án người dùng chọn
-        for key, value in request.POST.lists():
-            if key.startswith('choice'):
-                for choice_id in value:
-                    choice = Choice.objects.get(pk=int(choice_id))
-                    submission.choices.add(choice)
-                    
-        return HttpResponseRedirect(reverse('onlinecourse:exam_result', args=(course.id, submission.id)))
-    return redirect('onlinecourse:course_details', course_id=course.id)
+@csrf_exempt
+def login_user(request):
+    data = json.loads(request.body)
+    username = data['userName']
+    password = data['password']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return JsonResponse({"userName": username, "status": "Authenticated"})
+    else:
+        return JsonResponse({"userName": username, "status": "Failed"})
 
-def show_exam_result(request, course_id, submission_id):
-    """Hiển thị kết quả bài thi"""
-    course = get_object_or_404(Course, pk=course_id)
-    submission = get_object_or_404(Submission, pk=submission_id)
-    
-    context = {
-        'course': course,
-        'submission': submission,
-    }
-    return render(request, 'onlinecourse/exam_result_bootstrap.html', context)
+@csrf_exempt
+def logout_user(request):
+    username = request.user.username
+    logout(request)
+    return JsonResponse({"userName": username})
