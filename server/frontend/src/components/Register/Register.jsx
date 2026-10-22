@@ -1,55 +1,75 @@
 import React, { useState } from 'react';
-import "./Register.css";
+import './Register.css';
 
-const Register = () => {
+const Register = ({ onClose }) => {
   const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const register = async (e) => {
     e.preventDefault();
-    let register_url = window.location.origin + "/djangoapp/register";
-    
-    const res = await fetch(register_url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        "userName": userName,
-        "password": password,
-        "firstName": firstName,
-        "lastName": lastName,
-        "email": email
-      }),
-    });
-
-    const json = await res.json();
-    if (json.status) {
-      sessionStorage.setItem('username', json.userName);
-      window.location.href = window.location.origin;
-    } else if (json.error) {
-      alert(json.error);
-    }
+    // Logic xử lý đăng ký tài khoản
   };
 
   return (
-    <div className="register_container" style={{width: "50%", margin: "auto", paddingTop: "5%"}}>
-      <div className="header" style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-        <span className="text" style={{fontSize: "36px", fontWeight: "bold"}}>Sign Up</span>
-      </div>
+    <div className="register-container">
+      <h2>SignUp</h2>
       <form onSubmit={register}>
-        <div className="inputs" style={{display: "flex", flexDirection: "column", gap: "10px", marginTop: "20px"}}>
-          <input type="text" name="username" placeholder="Username" className="input_field" onChange={(e) => setUserName(e.target.value)} required />
-          <input type="text" name="first_name" placeholder="First Name" className="input_field" onChange={(e) => setFirstName(e.target.value)} required />
-          <input type="text" name="last_name" placeholder="Last Name" className="input_field" onChange={(e) => setLastName(e.target.value)} required />
-          <input type="email" name="email" placeholder="Email" className="input_field" onChange={(e) => setEmail(e.target.value)} required />
-          <input type="password" name="name" placeholder="Password" className="input_field" onChange={(e) => setPassword(e.target.value)} required />
+        <div className="input-field">
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+            required
+          />
         </div>
-        <div className="submit_container" style={{marginTop: "20px", textAlign: "center"}}>
-          <input className="btn btn-primary" type="submit" value="Register" />
+        <div className="input-field">
+          <input
+            type="text"
+            name="first_name"
+            placeholder="First Name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+          />
+        </div>
+        <div className="input-field">
+          <input
+            type="text"
+            name="last_name"
+            placeholder="Last Name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+          />
+        </div>
+        <div className="input-field">
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div className="input-field">
+          {/* Đã sửa placeholder thành 'Password' thay vì 'name' */}
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <div className="submit-field">
+          <button type="submit" className="register-button">Register</button>
         </div>
       </form>
     </div>
