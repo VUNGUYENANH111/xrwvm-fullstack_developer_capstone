@@ -1,0 +1,10 @@
+curl -i -X GET http://127.0.0.1:8000/fetchDealers/Kansas
+HTTP/1.1 200 OK
+Date: Thu, 22 Oct 2026 04:55:00 GMT
+Server: WSGIServer/0.2 CPython/3.14.2
+Content-Type: application/json
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+Referrer-Policy: same-origin
+Cross-Origin-Opener-Policy: same-origin
+{"status": 200, "dealers": [{"id": 2, "city": "Topeka", "state": "Kansas", "address": "456 Kansas Ave", "zip": "66603", "lat": 39.0473, "long": -95.6815, "short_name": "Kansas Dealership", "full_name": "Kansas Toyota Dealership"}]}
