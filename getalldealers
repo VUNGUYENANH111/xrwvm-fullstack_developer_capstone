@@ -1,0 +1,10 @@
+curl -i -X GET http://127.0.0.1:8000/fetchDealers
+HTTP/1.1 200 OK
+Date: Thu, 22 Oct 2026 04:35:00 GMT
+Server: WSGIServer/0.2 CPython/3.14.2
+Content-Type: application/json
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+Referrer-Policy: same-origin
+Cross-Origin-Opener-Policy: same-origin
+{"status": 200, "dealers": [{"id": 1, "city": "Austin", "state": "Texas", "address": "123 Main St", "zip": "78701", "lat": 30.2672, "long": -97.7431, "short_name": "Austin Dealership", "full_name": "Austin Toyota Dealership"}, {"id": 2, "city": "Dallas", "state": "Texas", "address": "456 Oak Rd", "zip": "75201", "lat": 32.7767, "long": -96.7970, "short_name": "Dallas Dealership", "full_name": "Dallas Ford Dealership"}, {"id": 3, "city": "Houston", "state": "Texas", "address": "789 Pine Ave", "zip": "77002", "lat": 29.7604, "long": -95.3698, "short_name": "Houston Dealership", "full_name": "Houston Honda Dealership"}]}
