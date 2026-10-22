@@ -1,0 +1,11 @@
+curl -i -X GET http://127.0.0.1:8000/fetchReviews/dealer/1
+HTTP/1.1 200 OK
+Date: Thu, 22 Oct 2026 04:26:51 GMT
+Server: WSGIServer/0.2 CPython/3.14.2
+Content-Type: application/json
+X-Frame-Options: DENY
+Content-Length: 235
+X-Content-Type-Options: nosniff
+Referrer-Policy: same-origin
+Cross-Origin-Opener-Policy: same-origin
+{"status": 200, "reviews": [{"id": 1, "name": "Test User", "dealership": 1, "review": "Great service and friendly staff!", "purchase": true, "purchase_date": "01/01/2026", "car_make": "Toyota", "car_model": "Camry", "car_year": 2024}]}
